@@ -109,7 +109,15 @@ The database contains tables for customers, menus, menu items, restaurants, and 
 | address        | VARCHAR(255) |	Location of the restaurant                                |
 | phone_number   | VARCHAR(255) | number for contacting the restaurant                      |
 
+### Review Table
 
+| Column Name    | Data Type    | Description                                                  |
+| -------------- | ------------ | -----------------------------------------------------        |
+| id             | BIGINT (PK)  | Unique identifier for each review.                           |
+| content        | VARCHAR(255) | Content of the review.                                       |
+| rating         | DOUBLE       | rate of the restaurant.                                      |
+| restaurant_id  | BIGINT (FK)  |	Foreign key referencing the restaurant that have the review. |
+| customer_id    | BIGINT (FK)  | Foreign key referencing the customer who wrote the review.   |
 
 
 ## Data Structures Used in the Project
@@ -117,11 +125,17 @@ The database contains tables for customers, menus, menu items, restaurants, and 
 
 ### Entity Classes
 
-1. **User Entity**: This class represents the structure of user data in the database. It includes fields such as `id`, `username`, `password`, `email`, `role`, `is_signed_up`, `is_signed_in`, and `created_at`. These fields are mapped to corresponding columns in the User Table.
+1. **Customer Entity**: This class represents the structure of customer data in the database. It includes fields such as `id`, `customerName`, `customerEmail`. These fields are mapped to corresponding columns in the Customer Table.
 
-2. **Food Item Entity**: This class defines the structure for food item data in the database. It includes fields like `id`, `name`, `description`, `price`, and `type`. These fields are mapped to corresponding columns in the Food Item Table.
+2. **Menu Entity**: This class defines the structure for menu data in the database. It includes fields like `id`, `menuName`. These fields are mapped to corresponding columns in the Menu Table.
 
-3. **Order Entity**: This class represents the structure of order data in the database. It includes fields such as `id`, `user`, `foodItem`, `status`, and `orderDate`. The `user` and `foodItem` fields are mapped as foreign keys to the User Table and Food Item Table, respectively.
+3. **Menu Item Entity**: This class represents the structure of menu item data in the database. It includes fields such as `id`, `name`, `description`, `price`. The `menu` and `restaurant` fields are mapped as foreign keys to the Menu Table and Restaurant Table, respectively.
+
+4. **Restaurant Entity**: This class represents the structure of restaurant data in the database. It includes fields such as `id`, `restaurantName`, `cuisine`, `address`, `phoneNumber`.
+
+5. **Review Entity**: This class represents the structure of review data in the database. It includes fields such as `id`, `content`, `rating`, `address`, `phoneNumber`.
+   The `restaurant` and `customer` fields are mapped as foreign keys to the Restaurant Table and Customer Table, respectively.
+
 
 ### Data Transfer Object (DTO) Classes
 
