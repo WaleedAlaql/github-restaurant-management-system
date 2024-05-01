@@ -145,3 +145,290 @@ The database contains tables for customers, menus, menu items, restaurants, and 
 
 These data structures, both entity classes and DTO classes, are essential components of the project, defining the structure of data and requests/responses used in the system.
 
+<br/>
+
+
+1. **Customer Entity**: Represents customer data in the database.
+
+```java
+@Data
+@Entity
+@Table(
+        name = "customer"
+)
+public class Customer {
+
+   @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(
+            name = "id",
+            updatable = false
+    )
+    private Long id;
+
+   @Column(
+            name = "username",
+            nullable = false
+    )
+    private String customerName;
+
+   @Column(
+            name = "email",
+            nullable = false
+    )
+    private String customerEmail;
+}
+```
+
+2. **Menu Entity**: Represents menu data in the database.
+
+```java
+@Data
+@Entity
+@Table(
+        name = "menu"
+)
+public class Menu {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(
+            name = "id",
+            updatable = false
+    )
+    private Long id;
+
+    @Column(
+            name = "menu_name",
+            columnDefinition = "TEXT",
+            nullable = false
+    )
+    private String menuName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(
+            name = "restaurant_id",
+            nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "restaurant_menu_fk"
+            )
+    )
+    private Restaurant restaurant;
+}
+```
+
+3. **Menu Item Entity**: Represents menu item data in the database.
+
+```java
+@Data
+@Entity
+@Table(
+        name = "menu_item"
+)
+public class MenuItem {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(
+            name = "id",
+            updatable = false
+    )
+    private Long id;
+
+    @Column(
+            name = "item_name",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String name;
+
+    @Column(
+            name = "description",
+            columnDefinition = "TEXT"
+    )
+    private String description;
+
+    @Column(
+            name = "price",
+            nullable = false
+    )
+    private Double price;
+
+    @Enumerated(EnumType.STRING)
+    private DinnerMenu menuType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(
+            name = "menu_id",
+            nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "menu_item_fk"
+            )
+    )
+    private Menu menu;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(
+            name = "restaurant_id",
+//            nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "restaurant_menu_item_fk"
+            )
+    )    private Restaurant restaurant;
+}
+```
+
+4. **Restaurant Entity**: Represents restaurant data in the database.
+
+```java
+@Data
+@Entity
+@Table(
+        name = "restaurant"
+)
+public class Restaurant {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(
+            name = "id",
+            updatable = false
+    )
+    private Long id;
+
+    @Column(
+            name = "restaurant_name",
+            columnDefinition = "TEXT",
+            nullable = false
+    )
+    private String restaurantName;
+
+    @Column(
+            name = "cuisine",
+            columnDefinition = "TEXT",
+            nullable = false
+    )
+    private String cuisine;
+
+    @Column(
+            name = "address",
+            columnDefinition = "TEXT",
+            nullable = false
+    )
+    private String address;
+
+    @Column(
+            name = "phone_number",
+            columnDefinition = "TEXT",
+            nullable = false
+    )
+    private String phoneNumber;
+
+    @JsonIgnore
+    @OneToMany(
+            mappedBy = "restaurant",
+            orphanRemoval = true,
+            cascade = CascadeType.ALL
+    )
+    private List<Menu> menuList = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(
+            mappedBy = "restaurant",
+            orphanRemoval = true,
+            cascade = CascadeType.ALL
+    )
+    private List<Review> reviews = new ArrayList<>();
+}
+```
+5. **Review Entity**: Represents review data in the database.
+
+```java
+@Data
+@Entity
+@Table(
+        name = "review"
+)
+public class Review {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(
+            name = "id",
+            updatable = false
+    )
+    private Long id;
+
+    @Column(
+            name = "content",
+            nullable = false
+    )
+    private String content;
+
+    @Column(
+            name = "rating",
+            nullable = false
+    )
+    private Double rating;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(
+            name = "restaurant_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "restaurant_review_fk"
+            )
+    )
+    private Restaurant restaurant;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(
+            name = "customer_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "user_review_fk"
+            )
+    )
+    private Customer customer;
+
+}
+```
+
+### Data Transfer Object (DTO) Classes
+
+1. **CreateReviewRequest**: Represents the data needed to create a review.
+
+```java
+@Data
+public class CreateReviewRequest {
+
+    private String content;
+    private Double rating;
+    private Customer customer;
+}
+```
+
+2. **DinnerMenuItemRequest**: Represents the data needed to create a menu item.
+
+```java
+@Data
+public class DinnerMenuItemRequest {
+
+    private String name;
+    private String description;
+    private Double price;
+    private Menu menu;
+}
+```
+
+## Project Summary
+
+The Restaurant Management System is a Spring Boot-based application that provides functionality for managing users, food items, and orders. The project uses a PostgreSQL database to store data. It offers RESTful API endpoints for user registration, and food menu retrieval.
