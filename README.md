@@ -139,19 +139,9 @@ The database contains tables for customers, menus, menu items, restaurants, and 
 
 ### Data Transfer Object (DTO) Classes
 
-1. **SignUpRequest**: This DTO class is used to encapsulate the data needed to sign up a new user. It includes fields for `username`, `password`, and `email`.
+1. **CreateReviewRequest**: This DTO class is used to encapsulate the data needed to create a request. It includes fields for `content`, `rating`, and `customer`.
 
-2. **SignInRequest**: This DTO class encapsulates the data required to sign in a user. It includes fields for `username` and `password`.
-
-3. **FoodItemRequest**: This DTO class is used for adding a new food item to the system. It includes fields for `name`, `description`, `price`, and `type`.
-
-4. **OrderRequest**: This DTO class represents the data needed to place a food order. It includes fields for `userId` and `foodItemId`.
-
-5. **UserResponse**: This DTO class is used to send user-related information as a response. It includes fields for `id`, `username`, `email`, and `role`.
-
-6. **FoodItemResponse**: This DTO class is used to send food item-related information as a response. It includes fields for `id`, `name`, `description`, `price`, and `type`.
-
-7. **OrderResponse**: This DTO class is used to send order-related information as a response. It includes fields for `id`, `user` (containing user information), `foodItem` (containing food item information), `status`, and `orderDate`.
+2. **DinnerMenuItemRequest**: This DTO class encapsulates the data required to send a request to add menu item to menu. It includes fields for `name`, `description`, `price`, `menu`.
 
 These data structures, both entity classes and DTO classes, are essential components of the project, defining the structure of data and requests/responses used in the system.
 
