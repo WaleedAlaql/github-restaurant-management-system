@@ -72,38 +72,44 @@ The database contains tables for customers, menus, menu items, restaurants, and 
 
 ### Detailed Database Design
 
-### User Table
+### Customer Table
 
 | Column Name    | Data Type    | Description                                           |
 | -------------- | ------------ | ----------------------------------------------------- |
-| id             | BIGINT (PK)  | Unique identifier for each user.                      |
-| username       | VARCHAR(255) | Username of the user.                                 |
-| password       | VARCHAR(255) | Password of the user (hashed and salted).             |
-| email          | VARCHAR(255) | Email address of the user.                            |
-| role           | VARCHAR(50)  | Role of the user (Admin, Normal User, Visitor).       |
-| is_signed_up   | BOOLEAN      | Indicates whether the user is signed up or not.       |
-| is_signed_in   | BOOLEAN      | Indicates whether the user is signed in or not.       |
-| created_at     | TIMESTAMP    | Timestamp of user creation.                           |
+| id             | BIGINT (PK)  | Unique identifier for each customer.                  |
+| username       | VARCHAR(255) | Username of the customer.                             |
+| email          | VARCHAR(255) | Email address of the customer.                            |
 
-### Food Item Table
+### Menu Table
 
-| Column Name    | Data Type    | Description                                           |
-| -------------- | ------------ | ----------------------------------------------------- |
-| id             | BIGINT (PK)  | Unique identifier for each food item.                 |
-| name           | VARCHAR(255) | Name of the food item.                                |
-| description    | TEXT         | Description of the food item.                         |
-| price          | DECIMAL(10,2)| Price of the food item.                               |
-| type           | VARCHAR(50)  | Type of food item (e.g., Appetizer, Main Course).     |
+| Column Name    | Data Type    | Description                                              |
+| -------------- | ------------ | -----------------------------------------------------    |
+| id             | BIGINT (PK)  | Unique identifier for each menu.                         |
+| menu_name      | VARCHAR(255) | Name of the menu.                                        |
+| restaurant_id  | BIGINT (FK)  | Foreign key referencing the restaurant who have the menu.|
 
-### Order Table
+### Menu Item Table
 
-| Column Name    | Data Type    | Description                                           |
-| -------------- | ------------ | ----------------------------------------------------- |
-| id             | BIGINT (PK)  | Unique identifier for each order.                     |
-| user_id        | BIGINT (FK)  | Foreign key referencing the user who placed the order.|
-| food_item_id   | BIGINT (FK)  | Foreign key referencing the ordered food item.        |
-| status         | VARCHAR(50)  | Status of the order (e.g., Placed, Delivered).         |
-| order_date     | TIMESTAMP    | Timestamp of order placement. 
+| Column Name    | Data Type    | Description                                               |
+| -------------- | ------------ | -----------------------------------------------------     |
+| id             | BIGINT (PK)  | Unique identifier for each menu item.                     |
+| item_name      | VARCHAR(255) | Name of the item.                                         |
+| description    | VARCHAR(255) | Description of the food item.                             |
+| price          | DECIMAL(10,2)|	Price of the food item.                                   |
+| menu_id        | BIGINT (FK)  | Foreign key referencing the menu who have the item.       |
+| restaurant_id  | BIGINT (FK)  | Foreign key referencing the restaurant who have the item. |
+
+### Restaurant Table
+
+| Column Name    | Data Type    | Description                                               |
+| -------------- | ------------ | -----------------------------------------------------     |
+| id             | BIGINT (PK)  | Unique identifier for each restaurant.                    |
+| restaurant_name| VARCHAR(255) | Name of the restaurant.                                   |
+| cuisine        | VARCHAR(255) | Name of the cuisine.                                      |
+| address        | VARCHAR(255) |	Location of the restaurant                                |
+| phone_number   | VARCHAR(255) | number for contacting the restaurant                      |
+
+
 
 
 ## Data Structures Used in the Project
