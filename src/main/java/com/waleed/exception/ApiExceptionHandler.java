@@ -10,10 +10,10 @@ import java.time.ZonedDateTime;
 public class ApiExceptionHandler {
 
     @ExceptionHandler(value = RestaurantNotFoundException.class)
-    public ResponseEntity<Object> handleRestaurantNotFoundException(RestaurantNotFoundException e){
+    public ResponseEntity<Object> handleRestaurantNotFoundException(RestaurantNotFoundException exception){
 
         ApiException apiException = new ApiException(
-                e.getMessage(),
+                exception.getMessage(),
                 HttpStatus.NOT_FOUND,
                 ZonedDateTime.now()
         );
@@ -24,10 +24,10 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(value = MenuNotFoundException.class)
-    public ResponseEntity<Object> handleMenuNotFoundException(MenuNotFoundException e){
+    public ResponseEntity<Object> handleMenuNotFoundException(MenuNotFoundException exception){
 
         ApiException apiException = new ApiException(
-                e.getMessage(),
+                exception.getMessage(),
                 HttpStatus.NOT_FOUND,
                 ZonedDateTime.now()
         );
@@ -38,10 +38,10 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(value = MenuItemNotFoundException.class)
-    public ResponseEntity<Object> handleMenuItemNotFoundException(MenuItemNotFoundException e){
+    public ResponseEntity<Object> handleMenuItemNotFoundException(MenuItemNotFoundException exception){
 
         ApiException apiException = new ApiException(
-                e.getMessage(),
+                exception.getMessage(),
                 HttpStatus.NOT_FOUND,
                 ZonedDateTime.now()
         );
@@ -52,10 +52,10 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(value = ReviewNotFoundException.class)
-    public ResponseEntity<Object> handleReviewNotFoundException(ReviewNotFoundException e){
+    public ResponseEntity<Object> handleReviewNotFoundException(ReviewNotFoundException exception){
 
         ApiException apiException = new ApiException(
-                e.getMessage(),
+                exception.getMessage(),
                 HttpStatus.NOT_FOUND,
                 ZonedDateTime.now()
         );
@@ -66,10 +66,10 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(value = CustomerNotFoundException.class)
-    public ResponseEntity<Object> handleCustomerNotFoundException(CustomerNotFoundException e){
+    public ResponseEntity<Object> handleCustomerNotFoundException(CustomerNotFoundException exception){
 
         ApiException apiException = new ApiException(
-                e.getMessage(),
+                exception.getMessage(),
                 HttpStatus.NOT_FOUND,
                 ZonedDateTime.now()
         );
